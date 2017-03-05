@@ -13,7 +13,6 @@ public class LeagueInvaders {
 	public static void main(String[] args){
 		
 		LeagueInvaders league = new LeagueInvaders();
-		league.setup();
 		
 	}
 	
@@ -30,6 +29,7 @@ public class LeagueInvaders {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(width, height);
 		frame.add(panel);
+		frame.addKeyListener(panel);
 		frame.setVisible(true);
 		panel.startGame();
 		
