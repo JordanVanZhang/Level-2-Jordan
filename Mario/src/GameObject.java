@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 
 public class GameObject {
 	int x;
-	int y;
+	public int y;
 	int width;
 	int height;
 	Rectangle collisionBox;

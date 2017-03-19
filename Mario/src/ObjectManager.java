@@ -59,15 +59,19 @@ public class ObjectManager {
 				if(o1.collisionBox.intersects(o2.collisionBox)){
 					if((o1 instanceof Character && o2 instanceof Goomba) ||
 					   (o2 instanceof Character && o1 instanceof Goomba)){
-						score++;
-						System.out.println(score);
 						o1.isAlive = false;
 						o2.isAlive = false;
 					}
+				if(o1.collisionBox.intersects(o2.collisionBox)){
+					if((o1 instanceof Character && o2 instanceof Pipe) ||
+						(o2 instanceof Character && o1 instanceof Pipe)){
+						GamePanel.currentState=3;
+						}
 	
 				}
 			}
 			
+			}
 		}
 	}
 	

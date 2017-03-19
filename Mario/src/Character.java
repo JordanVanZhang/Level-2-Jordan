@@ -7,7 +7,8 @@ extends GameObject{
 	int gravity;
 	int jump;
 	boolean right, left, up, down;
-
+	Ground ground = new Ground(0,750,2000,300);
+	Block b = new Block(0,600,50,50);
 	Character(int x, int y, int width, int height){
 		super();
 		this.x=x;
@@ -25,8 +26,9 @@ extends GameObject{
 				y=y-15;
 			}
 		}
-		if (y<700){
+		if (y<ground.y-50||y<b.y-50){
 			y=y+gravity;
+			System.out.println(y);
 		}
 		
 		

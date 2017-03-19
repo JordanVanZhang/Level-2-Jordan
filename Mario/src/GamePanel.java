@@ -20,15 +20,18 @@ implements ActionListener, KeyListener{
 	final int game = 1;
 	final int lose = 2;
 	final int win = 3;
-	int currentState = 0;
+	static int currentState = 0;
 	Font titleFont;
 	Font regFont;
 	ObjectManager manager;
 	Character mario = new Character(250,600,50,50);
 	Ground ground = new Ground(0,750,2000,300);
 	Goomba g1 = new Goomba(300,700,50,50);
+	Pipe pipe = new Pipe(1000,700,50,50);
+	Block b = new Block(0,600,50,50);
 	public static BufferedImage marioImg;
 	public static BufferedImage goombaImg;
+	public static BufferedImage pipeImg;
 
 	GamePanel(){
 		time = new Timer(1000/60,this);
@@ -36,11 +39,14 @@ implements ActionListener, KeyListener{
 		manager.addObject(mario);
 		manager.addObject(ground);
 		manager.addObject(g1);
+		manager.addObject(pipe);
+		manager.addObject(b);
 		titleFont = new Font("Arial",Font.PLAIN,48);
 		regFont= new Font("Arial",Font.PLAIN, 30);
 		try{
 			marioImg=ImageIO.read(this.getClass().getResourceAsStream("mario.png"));
 			goombaImg=ImageIO.read(this.getClass().getResourceAsStream("goomba.png"));
+			pipeImg=ImageIO.read(this.getClass().getResourceAsStream("pipe.png"));
 		}catch(IOException e){
 			e.printStackTrace();
 		}
@@ -98,9 +104,13 @@ implements ActionListener, KeyListener{
 		}
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
 			g1.right=true;
+			pipe.right=true;
+			b.right=true;
 		}
 		if(e.getKeyCode()==KeyEvent.VK_LEFT){
 			g1.left=true;
+			pipe.left=true;
+			b.left=true;
 		}
 		
 	}
@@ -111,9 +121,13 @@ implements ActionListener, KeyListener{
 		}
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
 			g1.right=false;
+			pipe.right=false;
+			b.right=false;
 		}
 		if(e.getKeyCode()==KeyEvent.VK_LEFT){
 			g1.left=false;
+			pipe.left=false;
+			b.left=false;
 		}
 		
 	}
