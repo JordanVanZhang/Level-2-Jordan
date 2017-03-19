@@ -1,0 +1,142 @@
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.Timer;
+
+import javax.swing.JPanel;
+
+public class GamePanel
+extends JPanel
+implements ActionListener, KeyListener{
+	Timer time;
+	final int menu = 0;
+	final int game = 1;
+	final int lose = 2;
+	final int win = 3;
+	int currentState = 0;
+	Font titleFont;
+	Font regFont;
+	Character mario = new Character(250,600,50,50);
+	public Ground ground = new Ground(0,750,2000,300);
+
+	GamePanel(){
+		time = new Timer(1000/60,this);
+		titleFont = new Font("Arial",Font.PLAIN,48);
+		regFont= new Font("Arial",Font.PLAIN, 30);
+	}
+	public void actionPerformed(ActionEvent e) {
+		if(currentState==menu){
+			updateMenu();
+		}
+		else if(currentState==game){
+			updateGame();
+		}
+		else if(currentState==lose){
+			updateLose();
+		}
+		else if(currentState==win){
+			updateWin();
+		}
+		repaint();
+	}
+	
+	void startGame(){
+		time.start();
+		
+	}
+	
+	public void paintComponent(Graphics g){
+		if(currentState==menu){
+			drawMenu(g);
+		}
+		else if(currentState==game){
+			drawGame(g);
+		}
+		else if(currentState==lose){
+			drawLose(g);
+		}
+		else if(currentState==win){
+			drawWin(g);
+		}
+	}
+
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode()==KeyEvent.VK_ENTER){
+			currentState++;
+		}
+		if(currentState>win){
+			currentState=menu;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_UP){
+			mario.up=true;
+		}
+		
+	}
+
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	void updateMenu(){
+		
+	}
+	
+	void updateGame(){
+		mario.update();
+		ground.update();
+	}
+	
+	void updateLose(){
+		
+	}
+	
+	void updateWin(){
+		
+	}
+	
+	void drawMenu(Graphics g){
+		g.setColor(Color.BLUE);
+		g.fillRect(0, 0, Mario.windowWidth, Mario.windowHeight);
+		g.setFont(titleFont);
+		g.setColor(Color.WHITE);
+		g.drawString("WELCOME TO MARIO",250,250);
+		g.setFont(regFont);
+		g.drawString("Press ENTER to begin", 350, 500);
+
+	}
+	
+	void drawGame(Graphics g){
+		g.setColor(Color.GREEN);
+		g.fillRect(0, 0, Mario.windowWidth, Mario.windowHeight);
+		mario.draw(g);
+		ground.draw(g);
+	}
+	
+	void drawLose(Graphics g){
+		g.setColor(Color.RED);
+		g.fillRect(0, 0, Mario.windowWidth, Mario.windowHeight);
+		g.setFont(titleFont);
+		g.setColor(Color.WHITE);
+		g.drawString("You Lost!",400,250);
+	}
+	
+	void drawWin(Graphics g){
+		g.setColor(Color.GREEN);
+		g.fillRect(0, 0, Mario.windowWidth, Mario.windowHeight);
+		g.setFont(titleFont);
+		g.setColor(Color.WHITE);
+		g.drawString("You Won!",400,250);
+		
+	}
+}

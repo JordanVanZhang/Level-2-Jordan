@@ -1,0 +1,27 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
+public class Ground extends GameObject{
+	int speed;
+	boolean right, left, up, down;
+
+	Ground(int x, int y, int width, int height){
+		this.x=x;
+		this.y=y;
+		this.width=width;
+		this.height=height;
+		int speed=5;
+	}
+	
+	void update(){
+
+		
+		
+		
+	}
+	
+	void draw(Graphics g){
+		g.setColor(Color.ORANGE);
+		g.fillRect(x, y, width, height);
+	}
+}

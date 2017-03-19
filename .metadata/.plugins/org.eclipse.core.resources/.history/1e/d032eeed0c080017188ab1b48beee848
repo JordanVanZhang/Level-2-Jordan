@@ -1,0 +1,30 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
+public class Goomba 
+extends GameObject{
+	boolean right, left, up, down;
+	int speed = 5;
+	
+	Goomba(int x, int y, int width, int height){
+		this.x=x;
+		this.y=y;
+		this.width=width;
+		this.height=height;
+	}
+	
+	void update(){
+		if(right==true){
+			x=x+speed;
+		}
+		if(left==true){
+			x=x-speed;
+		}
+	}
+	
+	void draw(Graphics g){
+		g.setColor(Color.BLACK);
+		g.fillRect(x, y, width, height);
+	}
+
+}

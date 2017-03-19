@@ -1,0 +1,36 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
+public class Character 
+extends GameObject{
+	
+	int gravity;
+	int jump;
+	boolean right, left, up, down;
+
+	Character(int x, int y, int width, int height){
+		this.x=x;
+		this.y=y;
+		this.width=width;
+		this.height=height;
+		gravity = 5;
+		jump = 300;
+	}
+	
+	void update(){
+		
+		if(up==true&&y==700){
+			y=y-jump;
+		}
+		if (y<700){
+			y=y+gravity;
+		}
+		
+		
+	}
+	
+	void draw(Graphics g){
+		g.setColor(Color.BLUE);
+		g.fillRect(x, y, width, height);
+	}
+}
