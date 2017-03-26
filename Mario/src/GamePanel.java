@@ -100,7 +100,7 @@ implements ActionListener, KeyListener{
 			currentState=menu;
 		}
 		if(e.getKeyCode()==KeyEvent.VK_UP){
-			mario.up=true;
+			mario.jump();
 		}
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
 			g1.right=true;
@@ -116,9 +116,7 @@ implements ActionListener, KeyListener{
 	}
 
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode()==KeyEvent.VK_UP){
-			mario.up=false;
-		}
+
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
 			g1.right=false;
 			pipe.right=false;

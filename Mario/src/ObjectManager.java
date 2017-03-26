@@ -5,7 +5,9 @@ import java.util.Random;
 
 public class ObjectManager {
 	ArrayList<GameObject> objects;
-	
+	Character mario = new Character(250,600,50,50);
+	Ground ground = new Ground(0,750,2000,300);
+	Block b = new Block(0,600,50,50);
 	private int score = 0;
 	
 	long enemyTimer = 0;
@@ -69,9 +71,30 @@ public class ObjectManager {
 						}
 	
 				}
+				if(mario.getCBox().intersects(b.getCBox())){
+					handleCollision(b);
+				}
+				if(mario.getCBox().intersects(ground.getCBox())){
+					handleCollision(ground);
+				}
+
+				else
+				// Otherwise, use the setYlimit method to choose your players lowest point.
+					mario.setYLimit(1000);
+				
 			}
 			
 			}
+		}
+	}
+	void handleCollision(Ground g) {
+		if (mario.getYVelocity() >= 0 && mario.getY() + mario.getHeight() < g.getY() + 25) {
+			mario.setYLimit(g.getY() - mario.getHeight());
+		}
+	}
+	void handleCollision(Block b) {
+		if (mario.getYVelocity() >= 0 && mario.getY() + mario.getHeight() < b.getY() + 25) {
+			mario.setYLimit(b.getY() - mario.getHeight());
 		}
 	}
 	
