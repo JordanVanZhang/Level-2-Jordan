@@ -167,6 +167,7 @@ implements ActionListener, KeyListener{
 		g.setColor(Color.GREEN);
 		g.fillRect(0, 0, Mario.windowWidth, Mario.windowHeight);
 		manager.draw(g);
+
 	}
 	
 	void drawLose(Graphics g){

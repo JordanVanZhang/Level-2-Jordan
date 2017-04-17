@@ -21,5 +21,9 @@ public class GameObject {
 	void draw(Graphics g){
 		
 	}
+	Rectangle getCBox(){
+		update();
+		return collisionBox;
+	}
 	
 }

@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
@@ -34,6 +35,9 @@ public class ObjectManager {
 		for (int i = 0; i < objects.size(); i++) {
 			GameObject o = objects.get(i);
 			o.draw(g);
+			g.setColor(Color.RED);
+			g.drawRect(o.collisionBox.x, o.collisionBox.y, o.collisionBox.width, o.collisionBox.height);
+			
 		}
 	}
 
@@ -45,14 +49,15 @@ public class ObjectManager {
 		}
 	}
 
-//	public void manageEnemies(){
-//		if(System.currentTimeMillis() - enemyTimer >= enemySpawnTime){
-//			addObject(new Alien(new Random().nextInt(LeagueInvaders.WIDTH), 0, 50, 50));
-//			enemyTimer = System.currentTimeMillis();
-//		}
-//	}
-//
+public void manageEnemies(){
+	if(System.currentTimeMillis() - enemyTimer >= enemySpawnTime){
+		addObject(new Goomba(new Random().nextInt(Mario.windowWidth), 700, 50, 50));
+		enemyTimer = System.currentTimeMillis();
+	}
+	}
+
 	public void checkCollision() {
+		System.out.println("collision checked");
 		for (int i = 0; i < objects.size(); i++) {
 			for (int j = i + 1; j < objects.size(); j++) {
 				GameObject o1 = objects.get(i);
@@ -70,31 +75,38 @@ public class ObjectManager {
 						GamePanel.currentState=3;
 						}
 	
+					}
 				}
-				if(mario.getCBox().intersects(b.getCBox())){
-					handleCollision(b);
-				}
-				if(mario.getCBox().intersects(ground.getCBox())){
-					handleCollision(ground);
-				}
-
-				else
-				// Otherwise, use the setYlimit method to choose your players lowest point.
-					mario.setYLimit(1000);
-				
-			}
-			
 			}
 		}
+		System.out.println(mario.collisionBox.x+","+mario.collisionBox.y+","+mario.collisionBox.height+","+mario.collisionBox.width);
+		System.out.println(b.collisionBox.x+","+b.collisionBox.y);
+		if(mario.getCBox().intersects(b.getCBox())){
+				//handleCollision(b);
+			
+				System.out.println("collision");
+			}
+		if(mario.collisionBox.intersects(ground.collisionBox)){
+			handleCollision(ground);
+			
+			}
+
+				
+		else {
+			mario.setYLimit(1000);
+			}
 	}
+	
 	void handleCollision(Ground g) {
 		if (mario.getYVelocity() >= 0 && mario.getY() + mario.getHeight() < g.getY() + 25) {
 			mario.setYLimit(g.getY() - mario.getHeight());
+			System.out.println("ground");
 		}
 	}
 	void handleCollision(Block b) {
 		if (mario.getYVelocity() >= 0 && mario.getY() + mario.getHeight() < b.getY() + 25) {
 			mario.setYLimit(b.getY() - mario.getHeight());
+			System.out.println("block");
 		}
 	}
 	

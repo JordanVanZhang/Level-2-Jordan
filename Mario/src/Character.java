@@ -8,7 +8,7 @@ extends GameObject{
 	int gravity = 1;
 	int jump;
 	boolean right, left, up, down;
-	private Rectangle cBox = new Rectangle();
+	//private Rectangle cBox = new Rectangle();
 	boolean canJump = false;
 	private int yVelocity = 0;
 	private int jumpPower = 20;
@@ -23,7 +23,7 @@ extends GameObject{
 		this.height=height;
 		//gravity = 5;
 		//jump = 300;
-		cBox.setBounds(x,y,width,height);
+		//cBox.setBounds(x,y,width,height);
 	}
 	
 	public void jump(){
@@ -51,18 +51,17 @@ extends GameObject{
 			yVelocity = 0;
 			canJump = true;
 		}
-
-		cBox.setBounds(x, y, width, height);
-		System.out.println(y);
+		//cBox.setBounds(x, y, width, height);
+		
 		
 	}
 	
 	void draw(Graphics g){
 		g.drawImage(GamePanel.marioImg,x,y,width,height, null);
 	}
-	public Rectangle getCBox() {
-		return cBox;
-	}
+//	public Rectangle getCBox() {
+//		return cBox;
+//	}
 
 	public void setYLimit(int l) {
 		yLimit = l;
