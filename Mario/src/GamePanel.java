@@ -23,24 +23,17 @@ implements ActionListener, KeyListener{
 	static int currentState = 0;
 	Font titleFont;
 	Font regFont;
-	ObjectManager manager;
 	Character mario = new Character(250,600,50,50);
 	Ground ground = new Ground(0,750,2000,300);
 	Goomba g1 = new Goomba(300,700,50,50);
 	Pipe pipe = new Pipe(1000,700,50,50);
-	Block b = new Block(0,600,50,50);
+	Block b = new Block(0,650,50,50);
 	public static BufferedImage marioImg;
 	public static BufferedImage goombaImg;
 	public static BufferedImage pipeImg;
 
 	GamePanel(){
 		time = new Timer(1000/60,this);
-		manager = new ObjectManager();
-		manager.addObject(mario);
-		manager.addObject(ground);
-		manager.addObject(g1);
-		manager.addObject(pipe);
-		manager.addObject(b);
 		titleFont = new Font("Arial",Font.PLAIN,48);
 		regFont= new Font("Arial",Font.PLAIN, 30);
 		try{
@@ -135,15 +128,55 @@ implements ActionListener, KeyListener{
 	}
 	
 	void updateGame(){
-		manager.update();
-		manager.checkCollision();
+
+		mario.update();
+		g1.update();
+		b.update();
+		pipe.update();
+
 		if(Character.isAlive==false){
 			currentState=lose;
-			manager.reset();
 			mario = new Character(250,600,50,50);
 		}
-	}
+		if(mario.collisionBox.intersects(pipe.getCBox())){
+			GamePanel.currentState=3;
+		}
+		if(mario.collisionBox.intersects(g1.getCBox())){
+			GamePanel.currentState=2;
+		}
+		if(mario.collisionBox.intersects(b.getCBox())){
+			handleCollision(b);
+			
+			System.out.println("collision");
+			}
+		if(mario.collisionBox.intersects(ground.getCBox())){
+			handleCollision(ground);
+			}
 	
+				
+		else {
+			mario.setYLimit(1000);
+			}
+		}
+	
+
+
+	void handleCollision(Ground g) {
+	if (mario.getYVelocity() >= 0 && mario.getY() + mario.getHeight() < g.getY() + 25) {
+		mario.setYLimit(g.getY() - mario.getHeight());
+		}
+	}
+	void handleCollision(Block b) {
+		System.out.println("Velocity:"+mario.getYVelocity());
+		System.out.println("Mario height:"+(mario.getY() + mario.getHeight()));
+
+		System.out.println("block height:"+b.getY());
+	if (mario.getYVelocity() >= 0 && mario.getY() + mario.getHeight() < (b.getY()+100)) {
+		mario.setYLimit(b.getY() - mario.getHeight());
+		System.out.println("block");
+		System.out.println("new y lim:"+mario.getYLimit());
+		}
+	}
 	void updateLose(){
 		
 	}
@@ -166,7 +199,10 @@ implements ActionListener, KeyListener{
 	void drawGame(Graphics g){
 		g.setColor(Color.GREEN);
 		g.fillRect(0, 0, Mario.windowWidth, Mario.windowHeight);
-		manager.draw(g);
+		mario.draw(g);
+		g1.draw(g);
+		ground.draw(g);
+		b.draw(g);
 
 	}
 	

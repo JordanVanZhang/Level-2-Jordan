@@ -34,15 +34,6 @@ extends GameObject{
 	}
 	void update(){
 		super.update();
-//		if(up==true&&y==700){
-//			for(int i=1; i<20;i++){
-//				y=y-15;
-//			}
-//		}
-//		if (y<ground.y-50||y<b.y-50){
-//			y=y+gravity;
-//			System.out.println(y);
-//		}
 		yVelocity += gravity;
 		y += yVelocity;
 
@@ -51,7 +42,7 @@ extends GameObject{
 			yVelocity = 0;
 			canJump = true;
 		}
-		//cBox.setBounds(x, y, width, height);
+		
 		
 		
 	}
@@ -85,6 +76,9 @@ extends GameObject{
 
 	public int getYVelocity() {
 		return yVelocity;
+	}
+	public int getYLimit(){
+		return yLimit;
 	}
 }
 

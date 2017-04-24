@@ -6,9 +6,7 @@ import java.util.Random;
 
 public class ObjectManager {
 	ArrayList<GameObject> objects;
-	Character mario = new Character(250,600,50,50);
-	Ground ground = new Ground(0,750,2000,300);
-	Block b = new Block(0,600,50,50);
+	
 	private int score = 0;
 	
 	long enemyTimer = 0;
@@ -56,59 +54,12 @@ public void manageEnemies(){
 	}
 	}
 
-	public void checkCollision() {
-		System.out.println("collision checked");
-		for (int i = 0; i < objects.size(); i++) {
-			for (int j = i + 1; j < objects.size(); j++) {
-				GameObject o1 = objects.get(i);
-				GameObject o2 = objects.get(j);
-				
-				if(o1.collisionBox.intersects(o2.collisionBox)){
-					if((o1 instanceof Character && o2 instanceof Goomba) ||
-					   (o2 instanceof Character && o1 instanceof Goomba)){
-						o1.isAlive = false;
-						o2.isAlive = false;
-					}
-				if(o1.collisionBox.intersects(o2.collisionBox)){
-					if((o1 instanceof Character && o2 instanceof Pipe) ||
-						(o2 instanceof Character && o1 instanceof Pipe)){
-						GamePanel.currentState=3;
-						}
 	
-					}
-				}
-			}
-		}
-		System.out.println(mario.collisionBox.x+","+mario.collisionBox.y+","+mario.collisionBox.height+","+mario.collisionBox.width);
-		System.out.println(b.collisionBox.x+","+b.collisionBox.y);
-		if(mario.getCBox().intersects(b.getCBox())){
-				//handleCollision(b);
+	
 			
-				System.out.println("collision");
-			}
-		if(mario.collisionBox.intersects(ground.collisionBox)){
-			handleCollision(ground);
-			
-			}
+		
 
-				
-		else {
-			mario.setYLimit(1000);
-			}
-	}
-	
-	void handleCollision(Ground g) {
-		if (mario.getYVelocity() >= 0 && mario.getY() + mario.getHeight() < g.getY() + 25) {
-			mario.setYLimit(g.getY() - mario.getHeight());
-			System.out.println("ground");
-		}
-	}
-	void handleCollision(Block b) {
-		if (mario.getYVelocity() >= 0 && mario.getY() + mario.getHeight() < b.getY() + 25) {
-			mario.setYLimit(b.getY() - mario.getHeight());
-			System.out.println("block");
-		}
-	}
+		
 	
 	public int getScore(){
 		return score;
