@@ -22,6 +22,7 @@ extends GameObject{
 		if(left==true){
 			x=x+speed;
 		}
+		x=x-1;
 	}
 	
 	void draw(Graphics g){

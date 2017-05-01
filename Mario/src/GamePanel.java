@@ -25,9 +25,13 @@ implements ActionListener, KeyListener{
 	Font regFont;
 	Character mario = new Character(250,600,50,50);
 	Ground ground = new Ground(0,750,2000,300);
-	Goomba g1 = new Goomba(300,700,50,50);
+	Goomba g1 = new Goomba(500,700,50,50);
+	Goomba g2 = new Goomba(700,700,50,50);
 	Pipe pipe = new Pipe(1000,700,50,50);
-	Block b = new Block(0,650,50,50);
+	Block b = new Block(500,650,50,50);
+	Block b1 = new Block(700,650,50,50);
+	Block b2 = new Block(900,650,50,50);
+	
 	public static BufferedImage marioImg;
 	public static BufferedImage goombaImg;
 	public static BufferedImage pipeImg;
@@ -97,13 +101,19 @@ implements ActionListener, KeyListener{
 		}
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
 			g1.right=true;
+			g2.right=true;
 			pipe.right=true;
-			b.right=true;
+			b.moveRight();
+			b1.moveRight();
+			b2.moveRight();
 		}
 		if(e.getKeyCode()==KeyEvent.VK_LEFT){
 			g1.left=true;
+			g2.left=true;
 			pipe.left=true;
-			b.left=true;
+			b.moveLeft();
+			b1.moveLeft();
+			b2.moveLeft();
 		}
 		
 	}
@@ -112,13 +122,15 @@ implements ActionListener, KeyListener{
 
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
 			g1.right=false;
+			g2.right=false;
 			pipe.right=false;
-			b.right=false;
+			
 		}
 		if(e.getKeyCode()==KeyEvent.VK_LEFT){
 			g1.left=false;
+			g2.left=false;
 			pipe.left=false;
-			b.left=false;
+			
 		}
 		
 	}
@@ -131,7 +143,10 @@ implements ActionListener, KeyListener{
 
 		mario.update();
 		g1.update();
+		g2.update();
 		b.update();
+		b1.update();
+		b2.update();
 		pipe.update();
 
 		if(Character.isAlive==false){
@@ -144,18 +159,33 @@ implements ActionListener, KeyListener{
 		if(mario.collisionBox.intersects(g1.getCBox())){
 			GamePanel.currentState=2;
 		}
+		if(mario.collisionBox.intersects(g2.getCBox())){
+			GamePanel.currentState=2;
+		}
 		if(mario.collisionBox.intersects(b.getCBox())){
 			handleCollision(b);
-			
-			System.out.println("collision");
-			}
+		}
+		if(mario.collisionBox.intersects(b1.getCBox())){
+			handleCollision(b);
+		}
+		if(mario.collisionBox.intersects(b2.getCBox())){
+			handleCollision(b);
+		}
 		if(mario.collisionBox.intersects(ground.getCBox())){
 			handleCollision(ground);
 			}
 	
 				
-		else {
-			mario.setYLimit(1000);
+		if (!mario.collisionBox.intersects(b.getCBox())){
+			mario.setYLimit(700);
+			}
+
+		if (!mario.collisionBox.intersects(b1.getCBox())){
+			mario.setYLimit(700);
+			}
+		
+		if (!mario.collisionBox.intersects(b2.getCBox())){
+			mario.setYLimit(700);
 			}
 		}
 	
@@ -201,8 +231,12 @@ implements ActionListener, KeyListener{
 		g.fillRect(0, 0, Mario.windowWidth, Mario.windowHeight);
 		mario.draw(g);
 		g1.draw(g);
+		g2.draw(g);
 		ground.draw(g);
 		b.draw(g);
+		b1.draw(g);
+		b2.draw(g);
+		pipe.draw(g);
 
 	}
 	
