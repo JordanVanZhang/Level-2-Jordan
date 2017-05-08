@@ -22,7 +22,7 @@ public class GameObject {
 		
 	}
 	Rectangle getCBox(){
-		update();
+
 		return collisionBox;
 	}
 	

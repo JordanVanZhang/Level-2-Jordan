@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 public class Character 
@@ -13,17 +14,15 @@ extends GameObject{
 	private int yVelocity = 0;
 	private int jumpPower = 20;
 	private int yLimit = 700;
-	Ground ground = new Ground(0,750,2000,300);
-	Block b = new Block(0,600,50,50);
+
+	Rectangle feetBox;
 	Character(int x, int y, int width, int height){
 		super();
 		this.x=x;
 		this.y=y;
 		this.width=width;
 		this.height=height;
-		//gravity = 5;
-		//jump = 300;
-		//cBox.setBounds(x,y,width,height);
+		feetBox = new Rectangle(x, y+50, width, 1);
 	}
 	
 	public void jump(){
@@ -42,17 +41,17 @@ extends GameObject{
 			yVelocity = 0;
 			canJump = true;
 		}
-		
+		feetBox.setBounds(x, y+50, width, 1);
 		
 		
 	}
 	
 	void draw(Graphics g){
 		g.drawImage(GamePanel.marioImg,x,y,width,height, null);
+		g.setColor(Color.blue);
+		((Graphics2D)g).draw(feetBox);
 	}
-//	public Rectangle getCBox() {
-//		return cBox;
-//	}
+
 
 	public void setYLimit(int l) {
 		yLimit = l;

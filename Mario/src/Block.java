@@ -18,12 +18,12 @@ extends GameObject{
 	void update(){
 		//cBox.setBounds(x, y, width, height);
 		super.update();
-//		if(right==true){
-//			x=x-speed;
-//		}
-//		if(left==true){
-//			x=x+speed;
-//		}
+		if(right==true){
+			x=x-speed;
+		}
+		if(left==true){
+			x=x+speed;
+		}
 	}
 	
 	void draw(Graphics g){
@@ -33,13 +33,7 @@ extends GameObject{
 	//public Rectangle getCBox() {
 	//	return cBox;
 	//}
-	void moveRight(){
-		x=x+speed;
-	}
-	void moveLeft(){
-		x=x-speed;
-	}
-
+	
 	public int getX() {
 		return x;
 	}
