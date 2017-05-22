@@ -3,7 +3,7 @@ import java.awt.Graphics;
 public class BulletBill 
 extends GameObject{
 	boolean right, left, up, down;
-	int speed = 10;
+	int speed = 5;
 	
 	BulletBill(int x, int y, int width, int height){
 		super();
@@ -15,7 +15,13 @@ extends GameObject{
 	
 	void update(){
 		super.update();
-		x=x-speed;
+		x=x-10;
+		if(right==true){
+			x=x-speed;
+		}
+		if(left==true){
+			x=x+speed;
+		}
 	}
 	
 	void draw(Graphics g){

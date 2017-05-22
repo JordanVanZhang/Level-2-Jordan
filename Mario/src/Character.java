@@ -11,11 +11,14 @@ extends GameObject{
 	boolean right, left, up, down;
 	//private Rectangle cBox = new Rectangle();
 	boolean canJump = false;
+	boolean fire = false;
+	boolean giant = false;
 	private int yVelocity = 0;
 	private int jumpPower = 20;
 	private int yLimit = 700;
 
 	Rectangle feetBox;
+	Rectangle fireBox;
 	Character(int x, int y, int width, int height){
 		super();
 		this.x=x;
@@ -23,6 +26,7 @@ extends GameObject{
 		this.width=width;
 		this.height=height;
 		feetBox = new Rectangle(x, y+50, width, 1);
+		fireBox = new Rectangle(x+50, y, width, height);
 	}
 	
 	public void jump(){
@@ -41,15 +45,42 @@ extends GameObject{
 			yVelocity = 0;
 			canJump = true;
 		}
-		feetBox.setBounds(x, y+50, width, 1);
 		
+		if(giant==true){
+			width = width+50;
+			height = height+50;
+			y=y-50;
+			feetBox.setBounds(x, y+50, width+50, 1);
+		}
+		else{
+			feetBox.setBounds(x, y+50, width, 1);	
+		}
 		
+		if(fire==true){
+			if(right==true){
+				fireBox.setBounds(x+50, y, width, height);
+			}
+			if(left==true){
+				fireBox.setBounds(x-50, y, width, height);
+				}
+		}
 	}
 	
 	void draw(Graphics g){
-		g.drawImage(GamePanel.marioImg,x,y,width,height, null);
-		g.setColor(Color.blue);
-		((Graphics2D)g).draw(feetBox);
+		if (giant==false){
+			g.drawImage(GamePanel.marioImg,x,y,width,height, null);
+		}
+		if (giant==true){
+			g.drawImage(GamePanel.marioImg, x, y-50, width+50, height+50, null);
+		}
+		if(fire==true){
+			if(right==true){
+				g.drawImage(GamePanel.fireImg,x+50,y,width,height, null);
+			}
+			if(left==true){
+				g.drawImage(GamePanel.fireImg,x-50,y,width,height, null);
+			}
+		}
 	}
 
 

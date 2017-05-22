@@ -49,6 +49,7 @@ implements ActionListener, KeyListener{
 	public static BufferedImage goombaImg;
 	public static BufferedImage pipeImg;
 	public static BufferedImage bulletImg;
+	public static BufferedImage fireImg;
 
 	GamePanel(){
 		time = new Timer(1000/60,this);
@@ -58,7 +59,8 @@ implements ActionListener, KeyListener{
 			marioImg=ImageIO.read(this.getClass().getResourceAsStream("mario.png"));
 			goombaImg=ImageIO.read(this.getClass().getResourceAsStream("goomba.png"));
 			pipeImg=ImageIO.read(this.getClass().getResourceAsStream("pipe.png"));
-			bulletImg=ImageIO.read(this.getClass().getResourceAsStream("Bullet-Bill-icon.png"));
+			bulletImg=ImageIO.read(this.getClass().getResourceAsStream("Bullet_Bill.png"));
+			fireImg=ImageIO.read(this.getClass().getResourceAsStream("flame.png"));
 		}catch(IOException e){
 			e.printStackTrace();
 		}
@@ -111,10 +113,17 @@ implements ActionListener, KeyListener{
 		if(currentState>win){
 			currentState=menu;
 		}
+		if(e.getKeyCode()==KeyEvent.VK_F){
+			mario.fire=true;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_G){
+			mario.giant=true;
+		}
 		if(e.getKeyCode()==KeyEvent.VK_UP){
 			mario.jump();
 		}
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+			mario.right=true;
 			g1.right=true;
 			g2.right=true;
 			g3.right=true;
@@ -130,8 +139,12 @@ implements ActionListener, KeyListener{
 			b5.right=true;
 			b6.right=true;
 			b7.right=true;
+			B.right=true;
+			B1.right=true;
+			B2.right=true;
 		}
 		if(e.getKeyCode()==KeyEvent.VK_LEFT){
+			mario.left=true;
 			g1.left=true;
 			g2.left=true;
 			g3.left=true;
@@ -147,13 +160,22 @@ implements ActionListener, KeyListener{
 			b5.left=true;
 			b6.left=true;
 			b7.left=true;
+			B.left=true;
+			B1.left=true;
+			B2.left=true;
 		}
 		
 	}
 
 	public void keyReleased(KeyEvent e) {
-
+		if(e.getKeyCode()==KeyEvent.VK_F){
+			mario.fire=false;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_G){
+			mario.giant=false;
+		}
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+			mario.right=false;
 			g1.right=false;
 			g2.right=false;
 			g3.right=false;
@@ -169,9 +191,14 @@ implements ActionListener, KeyListener{
 			b5.right=false;
 			b6.right=false;
 			b7.right=false;
+			B.right=false;
+			B1.right=false;
+			B2.right=false;
+			
 			
 		}
 		if(e.getKeyCode()==KeyEvent.VK_LEFT){
+			mario.left=false;
 			g1.left=false;
 			g2.left=false;
 			g3.left=false;
@@ -187,6 +214,9 @@ implements ActionListener, KeyListener{
 			b5.left=false;
 			b6.left=false;
 			b7.left=false;
+			B.left=false;
+			B1.left=false;
+			B2.left=false;
 			
 		}
 		
@@ -243,6 +273,42 @@ implements ActionListener, KeyListener{
 		if(mario.collisionBox.intersects(g6.getCBox())){
 			GamePanel.currentState=2;
 		}
+		if(mario.fireBox.intersects(g1.getCBox())){
+			g1.x+=1000;
+		}
+		if(mario.fireBox.intersects(g2.getCBox())){
+			g2.x+=1000;
+		}
+		if(mario.fireBox.intersects(g3.getCBox())){
+			g3.x+=1000;
+		}
+		if(mario.fireBox.intersects(g4.getCBox())){
+			g4.x+=1000;
+		}
+		if(mario.fireBox.intersects(g5.getCBox())){
+			g5.x+=1000;
+		}
+		if(mario.fireBox.intersects(g6.getCBox())){
+			g6.x+=1000;
+		}
+		if(mario.feetBox.intersects(g1.getCBox())){
+			g1.x+=1000;
+		}
+		if(mario.feetBox.intersects(g2.getCBox())){
+			g2.x+=1000;
+		}
+		if(mario.feetBox.intersects(g3.getCBox())){
+			g3.x+=1000;
+		}
+		if(mario.feetBox.intersects(g4.getCBox())){
+			g4.x+=1000;
+		}
+		if(mario.feetBox.intersects(g5.getCBox())){
+			g5.x+=1000;
+		}
+		if(mario.feetBox.intersects(g6.getCBox())){
+			g6.x+=1000;
+		}
 		if(mario.collisionBox.intersects(B.getCBox())){
 			GamePanel.currentState=2;
 		}
@@ -251,6 +317,15 @@ implements ActionListener, KeyListener{
 		}
 		if(mario.collisionBox.intersects(B2.getCBox())){
 			GamePanel.currentState=2;
+		}
+		if(mario.feetBox.intersects(B.getCBox())){
+			B.x+=1000;
+		}
+		if(mario.feetBox.intersects(B1.getCBox())){
+			B1.x+=1000;
+		}
+		if(mario.feetBox.intersects(B2.getCBox())){
+			B2.x+=1000;
 		}
 		if(mario.collisionBox.intersects(b.getCBox())){
 			handleCollision(b);
